@@ -14,25 +14,25 @@ import pickle
 
 # cd C:\Users\yoc.HEROLD\OneDrive - dogado group\Dokumente\Developing\Python\Branch Classifyer
 
-
 # Load dataset into program
 
 df = pd.read_csv('Training_Data_Raw_Clean_True_Sample_500_FINAL.csv', sep=',', encoding='utf-8')
 
 
-# The maximum number of words to be used. (most frequent)
+# Define the maximum number of most frequent words used for training
 
 MAX_NB_WORDS = 50000
 
-# Max number of words in each complaint.
+# Define the maximum number of words in each document
 
 MAX_SEQUENCE_LENGTH = 100
 
-# This is fixed.
+# Define size of embedding layer 
 
 EMBEDDING_DIM = 100
 
-# Preprocess and clean data
+
+# Clean and preprocess data
 
 tokenizer = Tokenizer(num_words=MAX_NB_WORDS, filters='!"#$%&()*+,-./:;<=>?@[\]^_`{|}~', lower=True)
 
@@ -84,7 +84,6 @@ epochs = 10
 batch_size = 64
 
 history = model.fit(X_train, Y_train, epochs=epochs, batch_size=batch_size,validation_split=0.1,callbacks=[EarlyStopping(monitor='val_loss', patience=3, min_delta=0.0001)])
-
 
 """
 Epoch 1/10
