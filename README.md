@@ -1,4 +1,4 @@
-- Christopher Yoon, MSc.
+- Christopher Yoon
 - Software engineer, data scientist & part-time economist
 - Interested in:
   - Artificial intelligence
