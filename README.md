@@ -1,0 +1,11 @@
+- Christopher Yoon, MSc.
+- Software engineer, data scientist & part-time economist
+- Interested in:
+  - Artificial intelligence
+  - Machine Learning
+  - Statistics
+  - Mathematical and statistical modelling
+  - Web crawling
+  - Cloud computing
+
+- You can reach me under christopher.yoon@hotmail.com
