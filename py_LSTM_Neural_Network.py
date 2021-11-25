@@ -12,8 +12,6 @@ from keras.layers import Dropout
 import pickle
 
 
-# cd C:\Users\yoc.HEROLD\OneDrive - dogado group\Dokumente\Developing\Python\Branch Classifyer
-
 # Load dataset into program
 
 df = pd.read_csv('Training_Data_Raw_Clean_True_Sample_500_FINAL.csv', sep=',', encoding='utf-8')
@@ -161,7 +159,7 @@ print(pred, labels[np.argmax(pred)])
 
 # Save model to your directory
 
-model.save('C:/Users/yoc.HEROLD/OneDrive - dogado group/Dokumente/Developing/Python/Branch Classifyer')
+model.save('C:/Users/Dokumente/Developing/Python/Branch Classifyer')
 
 
 # Save Tokenizer to your directory as pickle file
@@ -173,7 +171,7 @@ pickle.dump(tokenizer, open(filename, 'wb'))
 
 # Load model
 
-model = keras.models.load_model('C:/Users/yoc.HEROLD/OneDrive - dogado group/Dokumente/Developing/Python/Branch Classifyer')
+model = keras.models.load_model('C:/Users/Dokumente/Developing/Python/Branch Classifyer')
 
 
 # Load tokenizer
