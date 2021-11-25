@@ -4,12 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
 
-
-# cd C:\Users\yoc.HEROLD\OneDrive - dogado group\Dokumente\Developing\Python\Data Analysis
-
-
-
-mydata = pd.read_csv('Edelweiss_Performance2.csv', error_bad_lines=False)
+mydata = pd.read_csv('TestData.csv', error_bad_lines=False)
 
 
 # Plot bar chart
@@ -33,9 +28,6 @@ plt.xlabel('')
 plt.xticks(rotation=0)
 plt.bar_label(ax.containers[0])
 plt.show()
-
-
-
 
 
 # Counting categories and plot bar chart
@@ -70,7 +62,6 @@ plt.yticks(default_x_ticks, categories, fontsize=8)
 plt.show()
 
 
-
 # Count values within certain ranges for TRUE Values
 
 df_acc = pd.DataFrame(mydata)
@@ -101,7 +92,6 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-
 # Count values within certain ranges for FALSE Values
 
 df_clean2 = df_acc.loc[~df_acc.Perf_1st] # filter false values
@@ -129,20 +119,18 @@ plt.ylim(0, 35)
 plt.show()
 
 
+# Curve Variablenverteilung
 
-# Curve Branchenverteilung Herold
-
-mydata = pd.read_csv('ORG_Firmen_vbrbranchen_nach_häufigkeit_aggregriert.csv')
+mydata = pd.read_csv('Variable_nach_häufigkeit_aggregriert.csv')
 df_anzahl = mydata['Anzahl']
 df_anzahl = pd.DataFrame(df_anzahl)
 
 plt.rcParams['figure.figsize'] = (6,5)
 plt.plot(df_anzahl, color='blue')
-plt.xlabel('Branchen')
+plt.xlabel('Kategorien')
 plt.ylabel('Frequency')
-plt.title('Häufigkeit von Branchen (VBR)')
+plt.title('Häufigkeit von Kategorien')
 plt.show()
-
 
 
 ## Plot top 500 Herold Branchen
@@ -153,16 +141,15 @@ df_anzahl_500 = df_top500['Anzahl']
 
 plt.rcParams['figure.figsize'] = (6,5)
 plt.plot(df_anzahl_500, color='blue')
-plt.xlabel('Branchen')
+plt.xlabel('Kategorien')
 plt.ylabel('Frequency')
-plt.title('Häufigkeit von Top 500 Branchen (VBR)')
+plt.title('Häufigkeit von Top 500 Kategorien')
 plt.show()
-
 
 
 ## Plot WKO Branchenverteilung
 
-mydata = pd.read_csv('WKO_Aggregiert.csv')
+mydata = pd.read_csv('Kategorien_Aggregiert.csv')
 
 df_anzahl = mydata['Anzahl']
 
@@ -174,13 +161,13 @@ df_anzahl_sort2 = df_anzahl_sort.reset_index()
 
 plt.rcParams['figure.figsize'] = (6,5)
 plt.plot(df_anzahl_sort2['Anzahl'], color='red')
-plt.xlabel('Berufsgruppen')
+plt.xlabel('Kategorien')
 plt.ylabel('Frequency')
-plt.title('Häufigkeit von Berufsgruppen (WKO)')
+plt.title('Häufigkeit von Kategorien')
 plt.show()
 
 
-## Plot Top 500 WKO Branchen
+## Plot Top 500 Kategorien
 
 df_anzahl2 = df_anzahl['Anzahl']
 
@@ -194,12 +181,10 @@ df_top500 = mydata.head(500)
 
 plt.rcParams['figure.figsize'] = (6,5)
 plt.plot(df_top500['Anzahl'], color='red')
-plt.xlabel('Berufsgruppen')
+plt.xlabel('Kategorien')
 plt.ylabel('Frequency')
-plt.title('Häufigkeit der Top 500 Berufsgruppen (WKO)')
+plt.title('Häufigkeit der Top 500 Kategorien')
 plt.show()
-
-
 
 
 # Word Cloud
@@ -217,8 +202,6 @@ plt.axis('off')
 plt.show()
 
 
-
-
 # Calculate growth rate from probabilities_1st_class to probababilities_3rd_class
 
 df_mydata = pd.DataFrame(mydata)
@@ -231,18 +214,11 @@ df_true_25 = df_true[(df_true['Probabilities_1st_Class'] < 25)] # Filter true ro
 df_false_25 = df_false[(df_false['Probabilities_1st_Class'] < 25)] # Filter false rows with lower than 25 % in column Probabilities 1st Class
 
 
-
 # Crosstable for performance analysis
 
 from sklearn.metrics import confusion_matrix
 
 
 
+df_empty.to_csv(r'Edelweiss/Output_Text_Top100_50_30_10_Empty.csv', index = False, header=True)
 
-
-
-
-try:
-    df_empty.to_csv(r'Edelweiss/Output_Edelweiss_Text_Top100_50_30_10_Empty.csv', index = False, header=True)
-except Exception as e:
-    print(e)
