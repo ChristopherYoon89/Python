@@ -25,30 +25,11 @@ driver = My_Chrome(options=options)
 
 chatlink = 'https://www.youtube.com/watch?v=vKpnXiSFXcE' 
 
-
-# cd C:\Users\User\Documents\Python Developing\Python\Chat_Bot
-
-#export PATH=$C:\Users\User\Documents\Python Developing\Python\Chat_Bot\geckodriver
-
-# Open duckduckgo, search for keyword, return page_source """
-
-#driver = webdriver.Chrome()
-
-
 driver.implicitly_wait(10)
-
-        #driver.get("https://duckduckgo.com")
-        #search_field = driver.find_element_by_id('search_form_input_homepage')
-        #search_field.clear()
-
-        #search_field.send_keys(keyword)
-        #search_field.submit()
 
 driver.get("https://www.youtube.com")
 
 driver.implicitly_wait(10)  
-
-
 
 
 # Accept Cookies of YouTube 
@@ -75,7 +56,7 @@ time.sleep(5)
 
 Input_Field = driver.find_element(By.ID, "identifierId")
 
-Input_Field.send_keys("harald.bodorsky@gmail.com")
+Input_Field.send_keys("xxxx.yyyyy@gmail.com")
 
 
 driver.implicitly_wait(10)  
@@ -97,7 +78,7 @@ time.sleep(6)
 
 Input_Field = driver.find_element(By.XPATH, "/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div[1]/div[1]/div/div/div/div/div[1]/div/div[1]/input")
 
-Input_Field.send_keys("Zawinul07##")
+Input_Field.send_keys("Z########")
 
 
 driver.implicitly_wait(10)  
