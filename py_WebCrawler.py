@@ -21,9 +21,6 @@ from nltk.tag.sequential import ClassifierBasedTagger
 start = timeit.default_timer()
 
 
-# cd C:\Users\yoc.HEROLD\OneDrive - dogado group\Dokumente\Developing\Python\Branch Classifyer
-
-
 # Define some functions that can be reused
 
 def ConvertString(string):
@@ -123,7 +120,7 @@ class ClassifierBasedGermanTagger(ClassifierBasedTagger):
 
 # Load dataset into program and create dataframe with list of urls
 
-df_dataset = pd.read_csv('Onlineshop/Dataset_Final_Test.csv', sep=',')
+df_dataset = pd.read_csv('Dataset_Final_Test.csv', sep=',')
 
 print('\nLoading data into program...')
 
@@ -364,7 +361,7 @@ df = pd.concat([df_dataset_pd, df_total_text_top100, df_total_text_top50, df_tot
 
 # Save dataframe to csv
 
-df.to_csv(r'Onlineshop/Test_Run_Crawler.csv', index = False, header=True)
+df.to_csv(r'Test_Run_Crawler.csv', index = False, header=True)
 print('Test_Run_Crawler.csv saved')
 
 
