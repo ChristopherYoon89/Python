@@ -9,7 +9,7 @@ from sklearn import feature_extraction, model_selection, naive_bayes, pipeline, 
 from sklearn.metrics import plot_confusion_matrix
 import pickle
 
-# cd C:\Users\yoc.HEROLD\OneDrive - dogado group\Dokumente\Developing\Python\Branch Classifyer
+# cd C:\Users\Dokumente\Developing\Python\Branch Classifyer
 
 
 # Load dataset into program
