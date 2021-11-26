@@ -255,85 +255,69 @@ for link in df_link.iterrows():
 
 # Detect language, if not German translate it
 
-        try:
-            pagetext = TextBlob(pagetext)
-            print('\n',pagetext.detect_language())
-            if pagetext.detect_language() != 'de':
-                pagetext = pagetext.translate(to='de')
-                print('\n Translating... \n')
-            else:
-                print('\n No translation needed... \n')
-        except Exception as e:
-            print(e)
+        pagetext = TextBlob(pagetext)
+        print('\n',pagetext.detect_language())
+        if pagetext.detect_language() != 'de':
+            pagetext = pagetext.translate(to='de')
+            print('\n Translating... \n')
+        else:
+            print('\n No translation needed... \n')
 
 
 # Tag words based on their word type and filter nouns
 
-        try:
-            pagetext = ConvertString(pagetext)
-            pagetext = tagger.tag(pagetext)
-            print(pagetext)
+        pagetext = ConvertString(pagetext)
+        pagetext = tagger.tag(pagetext)
+        print(pagetext)
 
-            Nomen_tags_NN = [t for t in pagetext if t[1] == "NN"]
-            Nomen_tags_FM = [t for t in pagetext if t[1] == "FM"]
-            Nomen_tags_NE = [t for t in pagetext if t[1] == "NE"]
+        Nomen_tags_NN = [t for t in pagetext if t[1] == "NN"]
+        Nomen_tags_FM = [t for t in pagetext if t[1] == "FM"]
+        Nomen_tags_NE = [t for t in pagetext if t[1] == "NE"]
 
-            Keywords = Nomen_tags_FM + Nomen_tags_NN + Nomen_tags_NE
+        Keywords = Nomen_tags_FM + Nomen_tags_NN + Nomen_tags_NE
 
-            Total_text.extend(Keywords)
-        except Exception as e:
-            print(e)
+        Total_text.extend(Keywords)
 
 
 # Remove second column and words from blacklist
 
-    try:
-        Total_text = [a for a,b in Total_text]
-        Total_text = [word for word in Total_text if word not in stopwords]
-        print(Total_text)
-    except Exception as e:
-        print(e)
+    Total_text = [a for a,b in Total_text]
+    Total_text = [word for word in Total_text if word not in stopwords]
+    print(Total_text)
 
 
 # Counter words and extract most frequent words
 
-    try:
-        Keywords_counted2 = Counter(Total_text)
-        print(Keywords_counted2)
-        top10 = Keywords_counted2.most_common(10)
-        top30 = Keywords_counted2.most_common(30)
-        top50 = Keywords_counted2.most_common(50)
-        top100 = Keywords_counted2.most_common(100)
-    except Exception as e:
-        print(e)
+    Keywords_counted2 = Counter(Total_text)
+    print(Keywords_counted2)
+    top10 = Keywords_counted2.most_common(10)
+    top30 = Keywords_counted2.most_common(30)
+    top50 = Keywords_counted2.most_common(50)
+    top100 = Keywords_counted2.most_common(100)
 
 
 # Remove second column and add them to data lists
 
-    try:
-        top10 = [a for a,b in top10]
-        mydata_top30 = [a for a,b in top30]
-        mydata_top50 = [a for a,b in top50]
-        mydata_top100 = [a for a,b in top100]
+    top10 = [a for a,b in top10]
+    mydata_top30 = [a for a,b in top30]
+    mydata_top50 = [a for a,b in top50]
+    mydata_top100 = [a for a,b in top100]
 
-        endstring_top10 = ConvertTuple(top10)
-        print(endstring_top10)
-        df_final_top10.append(endstring_top10)
+    endstring_top10 = ConvertTuple(top10)
+    print(endstring_top10)
+    df_final_top10.append(endstring_top10)
 
-        endstring_top30 = ConvertTuple(mydata_top30)
-        print(endstring_top30)
-        df_final_top30.append(endstring_top30)
+    endstring_top30 = ConvertTuple(mydata_top30)
+    print(endstring_top30)
+    df_final_top30.append(endstring_top30)
 
-        endstring_top50 = ConvertTuple(mydata_top50)
-        print(endstring_top50)
-        df_final_top50.append(endstring_top50)
+    endstring_top50 = ConvertTuple(mydata_top50)
+    print(endstring_top50)
+    df_final_top50.append(endstring_top50)
 
-        endstring_top100 = ConvertTuple(mydata_top100)
-        print(endstring_top100)
-        df_final_top100.append(endstring_top100)
-
-    except Exception as e:
-        print(e)
+    endstring_top100 = ConvertTuple(mydata_top100)
+    print(endstring_top100)
+    df_final_top100.append(endstring_top100)
 
 
 # Convert lists into Pandas dataframes and merge them
@@ -358,7 +342,7 @@ df = pd.concat([df_dataset_pd, df_total_text_top100, df_total_text_top50, df_tot
 
 # Save dataframe to csv
 
-df.to_csv(r'Onlineshop/Test_Run_Crawler.csv', index = False, header=True)
+df.to_csv(r'Test_Run_Crawler.csv', index = False, header=True)
 print('Test_Run_Crawler.csv saved')
 
 
