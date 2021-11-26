@@ -46,16 +46,12 @@ def CleanString(text):
     filtered_text = re.sub(r'[^ ]+\.[^ ]+',' ', text) # Remove all strings with url path
     filtered_text = re.sub(r'[^\/]+$',' ', filtered_text) # Remove all strings with slash
     filtered_text = re.sub(r'http://\S+|https://\S+', ' ', filtered_text, flags=re.MULTILINE) # Remove html links
-    filtered_text = re.sub(r'^jpg\S+', ' ', filtered_text) # Remove html link trash with jpg strings
-    filtered_text = re.sub(r'^com\S+', ' ', filtered_text) # Remove html link trash with com strings
-    filtered_text = re.sub(r'\/', ' ', filtered_text) # remove all forward slashes
     filtered_text = re.sub(r'\d', ' ', filtered_text) # remove digits/numbers
     filtered_text = re.sub(r'\s[a-zA-Z]\s+', ' ', filtered_text) # Remove strings with only one character
     filtered_text = re.sub(r'\b\w{1,3}\b', ' ', filtered_text) # Remove strings with less than 4 characters
     filtered_text = re.sub(r'\b\w{17,10000000}\b', ' ', filtered_text) # remove strings larger than 17 characters
     filtered_text = re.sub(r'[^ \nA-Za-z0-9À-ÖØ-öø-ÿЀ-ӿ/]+', ' ', filtered_text) # Enable German characters but remove ASCII symbols
     filtered_text = re.sub(r'\s+', ' ', filtered_text, flags = re.I) # Remove multiple spaces
-    filtered_text = re.sub(r'\s+',' ', filtered_text) # Remove extra spaces between words
     filtered_text = re.sub(r'^\s+', '', filtered_text) # Remove spaces at the beginning of string
     filtered_text = re.sub(r'\s+$', '', filtered_text) # Remove spaces at the end of the string
     return filtered_text
@@ -253,90 +249,74 @@ for link in df_link.iterrows():
 
         # Google language detecter and translater
 
-        try:
-            blob_obj_ger = TextBlob(text_from_html)
-            print('\n',blob_obj_ger.detect_language())
+        
+        blob_obj_ger = TextBlob(text_from_html)
+        print('\n',blob_obj_ger.detect_language())
 
-            if blob_obj_ger.detect_language() != 'de':
-                blob_obj_ger = blob_obj_ger.translate(to='de')
-                print('\n Translating... \n')
-            else:
-                print('\n No translation needed... \n')
+        if blob_obj_ger.detect_language() != 'de':
+            blob_obj_ger = blob_obj_ger.translate(to='de')
+            print('\n Translating... \n')
+        else:
+            print('\n No translation needed... \n')
 
-            print(blob_obj_ger)
-
-        except Exception as e:
-            print(e)
+        print(blob_obj_ger)
 
 
         # Convert string into list, tag words and filter out nouns
 
-        try:
-            blob_obj_ger = ConvertString(blob_obj_ger)
-            print(blob_obj_ger)
-            blob_obj_ger = tagger.tag(blob_obj_ger)
+        blob_obj_ger = ConvertString(blob_obj_ger)
+        print(blob_obj_ger)
+        blob_obj_ger = tagger.tag(blob_obj_ger)
 
-            Nomen_tags_NN = [t for t in blob_obj_ger if t[1] == 'NN']
-            Nomen_tags_FM = [t for t in blob_obj_ger if t[1] == 'FM']
-            Nomen_tags_NE = [t for t in blob_obj_ger if t[1] == 'NE']
+        Nomen_tags_NN = [t for t in blob_obj_ger if t[1] == 'NN']
+        Nomen_tags_FM = [t for t in blob_obj_ger if t[1] == 'FM']
+        Nomen_tags_NE = [t for t in blob_obj_ger if t[1] == 'NE']
 
-            Keywords = Nomen_tags_FM + Nomen_tags_NN + Nomen_tags_NE
-            print(Keywords)
+        Keywords = Nomen_tags_FM + Nomen_tags_NN + Nomen_tags_NE
+        print(Keywords)
 
-            Total_text.extend(Keywords)
-        except Exception as e:
-            print(e)
+        Total_text.extend(Keywords)
 
 
     # Remove second column and words from blacklist
 
-    try:
-        Total_text = [a for a,b in Total_text]
-        Total_text = [word for word in Total_text if word not in stopwords]
-        print(Total_text)
-    except Exception as e:
-        print(e)
+    Total_text = [a for a,b in Total_text]
+    Total_text = [word for word in Total_text if word not in stopwords]
+    print(Total_text)
 
 
     # Count the frequency of the keywords / top 100, top 50, top 30, top 10
 
-    try:
-        Keywords_counted2 = Counter(Total_text)
-        print(Keywords_counted2)
-        top10 = Keywords_counted2.most_common(10)
-        top30 = Keywords_counted2.most_common(30)
-        top50 = Keywords_counted2.most_common(50)
-        top100 = Keywords_counted2.most_common(100)
-    except Exception as e:
-        print(e)
+    Keywords_counted2 = Counter(Total_text)
+    print(Keywords_counted2)
+    top10 = Keywords_counted2.most_common(10)
+    top30 = Keywords_counted2.most_common(30)
+    top50 = Keywords_counted2.most_common(50)
+    top100 = Keywords_counted2.most_common(100)
 
 
     # Remove second column and add them to data lists
 
-    try:
-        top10 = [a for a,b in top10]
-        mydata_top30 = [a for a,b in top30]
-        mydata_top50 = [a for a,b in top50]
-        mydata_top100 = [a for a,b in top100]
+    top10 = [a for a,b in top10]
+    mydata_top30 = [a for a,b in top30]
+    mydata_top50 = [a for a,b in top50]
+    mydata_top100 = [a for a,b in top100]
 
-        endstring_top10 = ConvertTuple(top10)
-        print(endstring_top10)
-        df_final_top10.append(endstring_top10)
+    endstring_top10 = ConvertTuple(top10)
+    print(endstring_top10)
+    df_final_top10.append(endstring_top10)
 
-        endstring_top30 = ConvertTuple(mydata_top30)
-        print(endstring_top30)
-        df_final_top30.append(endstring_top30)
+    endstring_top30 = ConvertTuple(mydata_top30)
+    print(endstring_top30)
+    df_final_top30.append(endstring_top30)
 
-        endstring_top50 = ConvertTuple(mydata_top50)
-        print(endstring_top50)
-        df_final_top50.append(endstring_top50)
+    endstring_top50 = ConvertTuple(mydata_top50)
+    print(endstring_top50)
+    df_final_top50.append(endstring_top50)
 
-        endstring_top100 = ConvertTuple(mydata_top100)
-        print(endstring_top100)
-        df_final_top100.append(endstring_top100)
-
-    except Exception as e:
-        print(e)
+    endstring_top100 = ConvertTuple(mydata_top100)
+    print(endstring_top100)
+    df_final_top100.append(endstring_top100)
 
 
 # Convert lists into Pandas dataframes and merge them
