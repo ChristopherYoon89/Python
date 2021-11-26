@@ -189,6 +189,8 @@ plt.show()
 
 # Word Cloud
 
+from wordcloud import WordCloud
+
 mydata = pd.read_csv('Google_Analytics.csv')
 
 mydata200 = mydata.head(400)
@@ -214,11 +216,7 @@ df_true_25 = df_true[(df_true['Probabilities_1st_Class'] < 25)] # Filter true ro
 df_false_25 = df_false[(df_false['Probabilities_1st_Class'] < 25)] # Filter false rows with lower than 25 % in column Probabilities 1st Class
 
 
-# Crosstable for performance analysis
+# Save dataframe as csv File
 
-from sklearn.metrics import confusion_matrix
-
-
-
-df_empty.to_csv(r'Edelweiss/Output_Text_Top100_50_30_10_Empty.csv', index = False, header=True)
+df_empty.to_csv(r'Output_Text_Top100_50_30_10_Empty.csv', index = False, header=True)
 
