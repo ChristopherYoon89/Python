@@ -144,7 +144,7 @@ plt.show();
 
 # Test the model on new data
 
-New_Website = ['PORR Management World Tiefbau Video Hochbau Infrastruktur Medien Publikationen Nachhaltigkeit Public Hansen Lehre Erdbau Altlasten Umwelttechnik Design Engineering Abdichtung Jobbörse Investor Relations Compliance Einkauf Karrierewege Weiterbildung Images flags czech eská Republika e tina Organisation Magazin Digitales Fachmagazin Länderseiten Français Polska Polski România Român Slovensko Sloven Revitalisierung Palais Hotel Bauüberwachung Großprojekte Einkaufszentren Industrie Sonderbauten Bauten Stadien Wohnbau Bahnbau Brückenbau Ingenieurbau Kraftwerksbau Leitungsbau Spezialtiefbau Straßenbau Tunnelbau Überregionaler Wasserbau Rückbau Deponie Kies Transport Umweltlabor Architektur Bauphysik Bauvorbereitung Brandschutz Building Modeling Generalplanung LEAN Techn Tragwerksplanung Beschichtung Betondeckenbau Facility Fassadenbau Feste Fahrbahn Flughafenbau Health Care Hochgebirgsbau Hochhäuser Partnership Property Stahlbau Broschüren Ansprechpersonen Öffentliche Abbruch Traineeprogramm']
+New_Website = ['Publikationen Nachhaltigkeit Public Hansen Lehre Erdbau Altlasten Umwelttechnik Design Engineering Abdichtung Jobbörse Investor Relations Compliance Einkauf Karrierewege Weiterbildung Images flags czech eská Republika e tina Organisation Magazin Digitales Fachmagazin Länderseiten Français Polska Polski România Român Slovensko Sloven Revitalisierung Palais Hotel Bauüberwachung Großprojekte Einkaufszentren Industrie Sonderbauten Bauten Stadien Wohnbau Bahnbau Brückenbau Ingenieurbau Kraftwerksbau Leitungsbau Spezialtiefbau Straßenbau Tunnelbau Überregionaler Wasserbau Rückbau Deponie Kies Transport Umweltlabor Architektur Bauphysik Bauvorbereitung Brandschutz Building Modeling Generalplanung LEAN Techn Tragwerksplanung Beschichtung Betondeckenbau Facility Fassadenbau Feste Fahrbahn Flughafenbau Health Care Hochgebirgsbau Hochhäuser Partnership Property Stahlbau Broschüren Ansprechpersonen Öffentliche Abbruch Traineeprogramm']
 
 seq = tokenizer.texts_to_sequences(New_Website)
 
@@ -152,14 +152,14 @@ padded = pad_sequences(seq, maxlen=MAX_SEQUENCE_LENGTH)
 
 pred = model.predict(padded)
 
-labels = ['Class_10_Holzverarbeitung', 'Class_11_Glas_Keramik_Porzellan', 'Class_12_Optik_Schmuck_Uhren_Edelmetalle', 'Class_13_Zellstoffe_Papier_Verpackungen', 'Class_14_Textilien_Leder', 'Class_15_Lebensmittelerzeugung_Genussmittel', 'Class_16_Landwirtschaft_Forstwirtschaft_Gartenbau', 'Class_17_Logistik_Transport', 'Class_1_Abfallwirtschaft_Energie_Wasserwirtschaft', 'Class_20_Medizin_Healthcare', 'Class_21_Pflege_Betreuung_Soziale_Dienste', 'Class_22_Banking', 'Class_23_Unternehmensberatung_BWL_Dienste', 'Class_24_Immobilien', 'Class_25_Rechtswesen_Anwaelte', 'Class_26_Marketing', 'Class_27_Medien_Druck_Verlagswesen', 'Class_28_Kultur_Kunst_Brauchtum', 'Class_29_Sport_Freizeit_Events', 'Class_2_EDV_Telekommunikation_Elektronik', 'Class_30_Gastwirtschaft_Restaurant_Touristik', 'Class_31_Friseure_Beauty_Wellness', 'Class_32_Schulen_Fortbildungseinrichtungen', 'Class_33_Behoerden_Parteien_Verbaende', 'Class_3_Maschinen_Anlagen_Werkzeuge', 'Class_4_Automobil_Fahrzeuge_Motoren', 'Class_5_Metallverarbeitung', 'Class_6_Pharmazie_Biotechnologie_Bio_Engineering', 'Class_8_Baubranche_Handwerk', 'Class_9_Rohstoffe_Baustoffe']
+labels = ['Class_10', 'Class_11', 'Class_12', 'Class_13', 'Class_14', 'Class_15', 'Class_16', 'Class_17', 'Class_1', 'Class_20', 'Class_21', 'Class_22', 'Class_23', 'Class_24', 'Class_25', 'Class_26', 'Class_27', 'Class_28', 'Class_29', 'Class_2', 'Class_30', 'Class_31', 'Class_32', 'Class_33', 'Class_3', 'Class_4', 'Class_5', 'Class_6', 'Class_8', 'Class_9']
 
 print(pred, labels[np.argmax(pred)])
 
 
 # Save model to your directory
 
-model.save('C:/Users/Dokumente/Developing/Python/Branch Classifyer')
+model.save('C:/Users/Dokumente/Developing/Python/ANN_Classifyer')
 
 
 # Save Tokenizer to your directory as pickle file
@@ -171,7 +171,7 @@ pickle.dump(tokenizer, open(filename, 'wb'))
 
 # Load model
 
-model = keras.models.load_model('C:/Users/Dokumente/Developing/Python/Branch Classifyer')
+model = keras.models.load_model('C:/Users/Dokumente/Developing/Python/ANN_Classifyer')
 
 
 # Load tokenizer
