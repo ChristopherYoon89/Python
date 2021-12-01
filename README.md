@@ -7,5 +7,6 @@
   - Mathematical and statistical modelling
   - Web crawling
   - Cloud computing
+  - Software development
 
 - You can reach me under christopher.yoon@hotmail.com
