@@ -9,4 +9,4 @@
   - Cloud computing
   - Software development
 
-- You can reach me under yoondeveoping@outlook.com
+- You can reach me under yoondeveloping@outlook.com
