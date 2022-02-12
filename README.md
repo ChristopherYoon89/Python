@@ -9,4 +9,4 @@
   - Cloud computing
   - Software development
 
-- You can reach me under christopher.yoon@hotmail.com
+- You can reach me under yoondeveoping@outlook.com
