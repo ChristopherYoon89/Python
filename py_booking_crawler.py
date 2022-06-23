@@ -1,35 +1,24 @@
 import time
-from datetime import datetime
 import pandas as pd
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait as wait
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from bs4 import BeautifulSoup
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.service import Service
-import sys
 from selenium.webdriver.support import expected_conditions as EC  
 
-url = "https://www.booking.com/index.en-gb.html?label=gen173nr-1FCAEoggI46AdIM1gEaGmIAQGYATG4ARjIAQzYAQHoAQH4AQKIAgGoAgS4AoKptJQGwAIB0gIkNzBlZDAxYzMtOGM3ZS00ZDRhLTkyMWQtYmE2YzFmYWYxM2Fh2AIF4AIB&sid=88f90169f82312c259e1da039f387404&sb_price_type=total;srpvid=47977de8d0e900e5&;changed_currency=1;selected_currency=EUR"
-
-#county_search = "Dublin"
+url = "https://www.booking.com/"
 
 checkin_month = "Oktober 2022"
-#checkout_month = "June"
+
 checkin_day = "26, Friday"
+
+#checkout_month = "June"
+
 #checkout_day = "12"
 
 chrome_driver_path = Service("C:/Users/User/Documents/Python_Developing/Python/Booking_Crawling/chromedriver")
 
-options = webdriver.ChromeOptions() 
-options.add_experimental_option("excludeSwitches", ["enable-logging"])
-
-
-
-
-df_dataset_counties = pd.read_csv('Counties2.csv', usecols=['Counties'], sep=',')
+df_dataset_counties = pd.read_csv('Counties2.csv', usecols=['Counties'])
 
 df_properties = []
 
@@ -42,20 +31,11 @@ for row in df_dataset_counties.iterrows():
         except Exception as e:
                 print(e)
 
-
         try:
-                driver = webdriver.Chrome(options=options, service=chrome_driver_path)
+                driver = webdriver.Chrome(service=chrome_driver_path)
                 driver.get(url)
 
-                time.sleep(3)
-
-                #choose_currency = driver.find_element(By.CSS_SELECTOR, "div.bui-group__item:nth-child(1) > button:nth-child(1)")
-
-                #choose_currency.click()
-
-                #choose_currency_euro = wait(driver,20).until(EC.presence_of_element_located((By.LINK_TEXT , "Euro")))
-
-               
+                time.sleep(3)               
 
                 search_entry = wait(driver,20).until(EC.presence_of_element_located((By.ID, "ss")))
 
@@ -85,7 +65,6 @@ for row in df_dataset_counties.iterrows():
                 #Datebox_checkout_day = driver.find_element(By.CSS_SELECTOR, ".xp__dates__checkout > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > select:nth-child(2)")
 
                 #Datebox_checkout_day.send_keys(checkout_day)
-
 
                 #time.sleep(4)
 
@@ -135,10 +114,7 @@ for row in df_dataset_counties.iterrows():
                 time.sleep(3)
 
 
-                #results = wait(driver,20).until(EC.presence_of_element_located((By.CSS_SELECTOR, '[data-testid="property-card"]')))
-
-
-                results = driver.find_elements(By.CSS_SELECTOR, '[data-testid="property-card"]')
+                results = wait(driver,20).until(EC.presence_of_element_located((By.CSS_SELECTOR, '[data-testid="property-card"]')))
 
                 print(results)
 
@@ -146,21 +122,15 @@ for row in df_dataset_counties.iterrows():
                         propertyArr = property.text.split("\n")
                         print(propertyArr)
                         df_properties.append(propertyArr)
-                        
-
-
+                      
                 while True:
                         time.sleep(3)
-                        elm_check = driver.find_elements(By.CSS_SELECTOR, "[aria-label='Next page']")
-                        if not (driver.find_element(By.CSS_SELECTOR, "[aria-label='Next page']").is_enabled()): # or len(elm_check) < 1:
-                                
-                                break
-                        
+                        if not (driver.find_element(By.CSS_SELECTOR, "[aria-label='Next page']").is_enabled()):                         
+                                break                        
                         elm = driver.find_element(By.CSS_SELECTOR, "[aria-label='Next page']") 
                         elm.click()
                         time.sleep(3)
                         results = driver.find_elements(By.CSS_SELECTOR, '[data-testid="property-card"]')
-
                         print(results)
 
                         for property in results:
@@ -168,29 +138,12 @@ for row in df_dataset_counties.iterrows():
                                 print(propertyArr)
                                 df_properties.append(propertyArr)  
 
-                
-                        
-                                
-
         except Exception as e:
                 print(e)
 
 
-
-
-
-
-
 df_mydata = pd.DataFrame(df_properties)
-
-#df_mydata.columns = ['HTML_Text', 'Name_of_hotel', 'HTML_Text2', 'HTML_Text3', 'Location', 'Additional_info', 'Rating', 'Rating2', 'Number_of_Ratings', 
-#'Additional_info2', 'Additional_info3', 'Additional_info4', 'No_of_beds', 'Cancellation', 'Additional_info5', 'No_of_guests_per_night', 'Price_per_night', 
-#'Additional_info6', 'HTML_Text4', 'HTML_Text5', 'HTML_Text6', 'HTML_Text7']
-
-#df_mydata.dropna(inplace=True)
 
 print(df_mydata)
 
-df_mydata.to_csv(r'2_Adults_2_Kids_August_26_27.csv', header=False, index=False)
-
-
+df_mydata.to_csv(r'Booking_Crawling_2_Adults_2_Kids.csv', header=False, index=False)
