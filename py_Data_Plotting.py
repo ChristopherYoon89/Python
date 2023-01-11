@@ -75,7 +75,7 @@ df_clean = pd.DataFrame(df_clean)
 my_colors = ['red', 'yellow', 'green']
 
 positions = (0, 1, 2)
-#positions = range(0,3)
+# positions = list(range(0,3))
 #x_labels = ['<35 %', '35-65 %', '>65 %']
 x_labels = ['<25 %', '25-55 %', '>55 %']
 
@@ -102,8 +102,7 @@ df_clean2 = pd.DataFrame(df_clean2)
 my_colors = ['red', 'yellow', 'green']
 
 positions = (0, 1, 2)
-# positions = range(0,3)
-# x_labels = ['<35 %', '35-65 %', '>65 %']
+# positions = list(range(0,3))
 x_labels = ['<25 %', '25-55 %', '>55 %']
 
 ax = plt.gca()
