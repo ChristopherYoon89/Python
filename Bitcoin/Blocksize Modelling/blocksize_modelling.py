@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 import numpy as np
 
-df = pd.read_csv("monero_data4.xlsx")
+df = pd.read_excel("monero_data4.xlsx")
 
 # Convert 'year' and 'month' columns to datetime format
 df['date'] = pd.to_datetime(df[['year', 'month']].assign(day=1))
