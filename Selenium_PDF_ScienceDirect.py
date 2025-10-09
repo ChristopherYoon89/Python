@@ -18,7 +18,7 @@ from rapidfuzz import fuzz, process
 
 def random_number():
     '''
-    ->  Function to generate random number |
+    ->  Function generates a random number |
     ->  Mainly used for time.sleeps to imitate human behavior |
     '''
     x = random.uniform(10, 15)
@@ -28,7 +28,7 @@ def random_number():
 
 def define_options():
     '''
-    ->  Function to define options of webdriver |
+    ->  Function defines options for webdriver |
     ->  Options are used for general crawlings, mainly text |
     ->  Language configuration does not seem to work |
     '''
@@ -41,7 +41,7 @@ def define_options():
 
 def initiate_webdriver():
     '''
-    ->  Function to initiate Webdriver instance | 
+    ->  Function initiates webdriver instance | 
     ->  Driver is used for most crawlings, mainly for text data | 
     ->  Includes normal options |
     '''
@@ -53,10 +53,10 @@ def initiate_webdriver():
 
 def define_options_pdf():
     '''
-    ->  Function to define options of webdriver for Download PDF driver |
+    ->  Function defines options for webdriver for Download PDF driver |
     ->  Options are configured to automatically download the pdf file when a new 
         tab with a pdf viewer is opened | 
-    ->  It also defines a specific directory where pdfs are stored
+    ->  Function defines a specific directory where pdfs are stored
     '''
     options = uc.ChromeOptions()
     timestamp = datetime.now()
@@ -77,7 +77,7 @@ def define_options_pdf():
 
 def initiate_webdriver_pdf():
     '''
-    ->  Function to initiate webdriver instance for pdf download driver |
+    ->  Function initiates webdriver instance for pdf download driver |
     ->  Driver includes options specifically configured for pdf download |
     '''
     _options = define_options_pdf()
@@ -88,11 +88,11 @@ def initiate_webdriver_pdf():
 
 class Driver_ScienceDirect():
     '''
-    ->  Driver extracts the titles of the search results using a 
-        search query url for ScienceDirect |
+    ->  Driver extracts the titles of the search results using a search query 
+        url for ScienceDirect |
     ->  Class takes the search query url and the number of pages of the search 
         results as input variables | 
-    ->  It creates an .xlsx file with the column 'Title' |
+    ->  Program creates an .xlsx file with the column 'Title' |
     '''
     
     def __init__(self, search_query_url, pages):
@@ -155,7 +155,6 @@ class Driver_GoogleScholar():
     ->  Class takes the ScienceDirect titles as .xlsx file with the column name 'Title' as 
         input |
     ->  Driver creates an .xlsx file with the column name 'Full_citation' |
-    ->  File name includes All Google Scholar Citations |
     '''
 
     def __init__(self, titles_filename):
@@ -217,13 +216,12 @@ class Driver_GoogleScholar():
 
 class Dataset_All_Citations_Structured():
     '''
-    ->  Class uses the raw dataset from Google Scholar and transforms the raw data into 
+    ->  Program uses the raw dataset from Google Scholar and transforms the raw data into 
         a structured dataset |
     ->  Class parses the full citation and creates a separate column for each 
-        information (full citation, authors, year, title and the name of the 
-        publisher) |
+        information: full citation, authors, year, title and publisher name |
     ->  Class takes the Google Scholar .xlsx file with the 'Full_citation' column as input | 
-    ->  Program creates an .xlsx file with the structured citations.
+    ->  Program creates an .xlsx file with the structured citations |
     '''
 
     def __init__(self, df_filename):
@@ -316,16 +314,16 @@ class Dataset_All_Citations_Structured():
 
 class Driver_ScienceDirect_Abstract():
     '''
-    ->  Class for webdriver that extracts the abstracts from ScienceDirect |
+    ->  Webdriver extracts the abstracts from ScienceDirect |
     ->  Driver searches for h2 tag with the text "Abstract" and takes the 
-        next div tag with the text, if the string "Abstract" cannot be found, program 
+        next div tag with the text. If the string "Abstract" cannot be found, program 
         skips the title and inserts "NO ABSTRACT" |
     ->  Driver takes as input a list of titles as an .xlsx file with column name 
         'Title' | 
-    ->  Input data should also have a column titles "Excluded" with the variables 
-        "Excluded" or "". Crawler only extracts abstracts for papers that were 
+    ->  Input data should also have a column titled "Excluded" with the variables 
+        "Excluded" or "". Driver only extracts abstracts for papers that were 
         not excluded | 
-    ->  Class generates an .xlsx file with the structured citation and the 
+    ->  Program generates an .xlsx file with the structured citation and the 
         corresponding abstracts |
     '''
 
@@ -421,7 +419,7 @@ class Driver_ScienceDirect_Abstract():
 
 class Driver_ScienceDirect_PDFs():
     '''
-    ->  Webdriver that extracts the pdfs from ScienceDirect |
+    ->  Webdriver downloads the pdfs from ScienceDirect |
     ->  Driver searches for view pdf button, opens the pdf and automatically 
         downloads the pdf. To do this the driver has to switch between different tabs, pdf tab 
         should be closed immediately |
@@ -430,7 +428,7 @@ class Driver_ScienceDirect_PDFs():
     ->  Input data should also have a column titled "Excluded" with the variables 
         "Excluded" or "". Crawler only extracts pdfs for papers that were 
         not excluded | 
-    ->  Class generates an .xlsx file with the pdf urls and a directory with 
+    ->  Program generates an .xlsx file with the pdf urls and a directory with 
         the downloaded pdfs |
     '''
 
@@ -536,9 +534,9 @@ class Driver_ScienceDirect_PDFs():
 
 class PDF_File_Titles():
     '''
-    ->  Class extracts the titles from the pdf meta data and then renames the files 
+    ->  Program extracts the titles from the pdf meta data and then renames the files 
         into extracted title | 
-    ->  Class takes the PDF directory name as an input | 
+    ->  Class takes the PDF directory name as input | 
     '''
 
     def __init__(self, pdf_directory_name):
@@ -585,10 +583,10 @@ class PDF_File_Titles():
 
 class Dataset_Check_For_PDF():
     '''
-    ->  Class generates a check analyzing whether a PDF file corresponds with titles
-        dataset |
+    ->  Program checks whether a PDF file corresponds with titles dataset |
     ->  Class takes the name of the PDF directory and the .xlsx file with the titles 
-        as input. The .xlsx file should have a column titled "Title" |
+        as input variables. The .xlsx file should have a column titled "Title". The
+        pdf directory should include the pdf files with the titles as filenames |
     ->  Program creates an .xlsx file with the structured citations, especially titles,
         the best match with a filename and the matching score between 0-100 % |
     '''
