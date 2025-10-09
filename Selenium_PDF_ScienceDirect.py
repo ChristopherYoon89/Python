@@ -29,7 +29,7 @@ def random_number():
 def define_options():
     '''
     ->  Function to define options of webdriver |
-    ->  Options are used for most crawlings |
+    ->  Options are used for general crawlings, mainly text |
     ->  Language configuration does not seem to work |
     '''
     options = uc.ChromeOptions()
@@ -42,7 +42,7 @@ def define_options():
 def initiate_webdriver():
     '''
     ->  Function to initiate Webdriver instance | 
-    ->  Driver is used for most crawlings | 
+    ->  Driver is used for most crawlings, mainly for text data | 
     ->  Includes normal options |
     '''
     _options = define_options()
@@ -56,6 +56,7 @@ def define_options_pdf():
     ->  Function to define options of webdriver for Download PDF driver |
     ->  Options are configured to automatically download the pdf file when a new 
         tab with a pdf viewer is opened | 
+    ->  It also defines a specific directory where pdfs are stored
     '''
     options = uc.ChromeOptions()
     timestamp = datetime.now()
@@ -77,7 +78,7 @@ def define_options_pdf():
 def initiate_webdriver_pdf():
     '''
     ->  Function to initiate webdriver instance for pdf download driver |
-    ->  Driver includes specifically configured options for pdf download |
+    ->  Driver includes options specifically configured for pdf download |
     '''
     _options = define_options_pdf()
     driver = uc.Chrome(service=Service(ChromeDriverManager().install()), options=_options)
@@ -87,7 +88,7 @@ def initiate_webdriver_pdf():
 
 class Driver_ScienceDirect():
     '''
-    ->  Driver extracts and displays the titles of the search results using a 
+    ->  Driver extracts the titles of the search results using a 
         search query url for ScienceDirect |
     ->  Class takes the search query url and the number of pages of the search 
         results as input variables | 
@@ -150,7 +151,7 @@ class Driver_ScienceDirect():
 
 class Driver_GoogleScholar():
     '''
-    ->  Driver crawls the full citations on Google Scholar |
+    ->  Driver crawls the full citations from Google Scholar |
     ->  Class takes the ScienceDirect titles as .xlsx file with the column name 'Title' as 
         input |
     ->  Driver creates an .xlsx file with the column name 'Full_citation' |
@@ -216,12 +217,13 @@ class Driver_GoogleScholar():
 
 class Dataset_All_Citations_Structured():
     '''
-    ->  Class uses the raw dataset and transforms the raw data into a structured 
-        dataset |
+    ->  Class uses the raw dataset from Google Scholar and transforms the raw data into 
+        a structured dataset |
     ->  Class parses the full citation and creates a separate column for each 
         information (full citation, authors, year, title and the name of the 
         publisher) |
-    ->  Class takes the Google Scholar .xlsx file with the 'Full_citation' column | 
+    ->  Class takes the Google Scholar .xlsx file with the 'Full_citation' column as input | 
+    ->  Program creates an .xlsx file with the structured citations.
     '''
 
     def __init__(self, df_filename):
@@ -316,7 +318,8 @@ class Driver_ScienceDirect_Abstract():
     '''
     ->  Class for webdriver that extracts the abstracts from ScienceDirect |
     ->  Driver searches for h2 tag with the text "Abstract" and takes the 
-        next div tag with the text |
+        next div tag with the text, if the string "Abstract" cannot be found, program 
+        skips the title and inserts "NO ABSTRACT" |
     ->  Driver takes as input a list of titles as an .xlsx file with column name 
         'Title' | 
     ->  Input data should also have a column titles "Excluded" with the variables 
@@ -418,15 +421,14 @@ class Driver_ScienceDirect_Abstract():
 
 class Driver_ScienceDirect_PDFs():
     '''
-    ->  Class for webdriver that extracts the pdfs from ScienceDirect |
+    ->  Webdriver that extracts the pdfs from ScienceDirect |
     ->  Driver searches for view pdf button, opens the pdf and automatically 
-        download the pdf |
-    ->  To do this the driver has to switch between different tabs, pdf tab 
+        downloads the pdf. To do this the driver has to switch between different tabs, pdf tab 
         should be closed immediately |
     ->  Driver takes as input a list of titles as an .xlsx file with column name 
         'Title' | 
-    ->  Input data should also have a column titles "Excluded" with the variables 
-        "Excluded" or "". Crawler only extracts abstracts for papers that were 
+    ->  Input data should also have a column titled "Excluded" with the variables 
+        "Excluded" or "". Crawler only extracts pdfs for papers that were 
         not excluded | 
     ->  Class generates an .xlsx file with the pdf urls and a directory with 
         the downloaded pdfs |
@@ -587,7 +589,7 @@ class Dataset_Check_For_PDF():
         dataset |
     ->  Class takes the name of the PDF directory and the .xlsx file with the titles 
         as input. The .xlsx file should have a column titled "Title" |
-    ->  Class produces an .xlsx file with the structured citations, especially titles,
+    ->  Program creates an .xlsx file with the structured citations, especially titles,
         the best match with a filename and the matching score between 0-100 % |
     '''
 
@@ -645,7 +647,7 @@ def join_excel_tables():
 #### Crawl titles from sciencedirect using a search query
 #### I use ScienceDirect to crawl the PDFs because they have a large amount of 
 #### publicly available papers. SD also allows to enter a search string via an url and apply filters
-#### to search for papers
+#### to search for papers. The quality of the papers is generally very high.
 
 # search_query_url = "https://www.sciencedirect.com/search?qs=%28%E2%80%9EFinancial+Performance%E2%80%9C+OR+%E2%80%9ECorporate+Finance%E2%80%9C%29+AND+%28%E2%80%9EESG%E2%80%9C+OR+%E2%80%9ESustainability%E2%80%9C+OR+%E2%80%9ECSR%E2%80%9C%29+AND+%28%E2%80%9EQuantitative%E2%80%9C+OR+%E2%80%9EStatistical%E2%80%9C+OR+%E2%80%9ECorrelation%E2%80%9C+OR+%E2%80%9ERegression%E2%80%9C%29&tak=%28%E2%80%9EFinancial+Performance%E2%80%9C+OR+%E2%80%9ECorporate+Finance%E2%80%9C%29+AND+%28%E2%80%9EESG%E2%80%9C+OR+%E2%80%9ESustainability%E2%80%9C+OR+%E2%80%9ECSR%E2%80%9C%29+AND+%28%E2%80%9EQuantitative%E2%80%9C+OR+%E2%80%9EStatistical%E2%80%9C+OR+%E2%80%9ECorrelation%E2%80%9C+OR+%E2%80%9ERegression%E2%80%9C%29&date=2015-2025&articleTypes=FLA&accessTypes=openaccess&lastSelectedFacet=accessTypes" # Needs to be a URL that includes the search query   
 # pages = 4           # Define the number of pages of the search results that should be crawled / pages: 1-5 
