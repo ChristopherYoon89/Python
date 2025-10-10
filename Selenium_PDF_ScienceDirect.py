@@ -629,7 +629,7 @@ class Dataset_Check_For_PDF():
 
 def join_excel_tables():
     '''
-    ->  Function merges the different datasets |
+    >  Function merges the different datasets |
     '''
     df_full_citations_w_abstracts = pd.read_excel('ALL_CITATIONS_with_abstracts_08-10-2025_12-51-08.xlsx')
     df_full_citations_w_pdf_urls = pd.read_excel('ALL_CITATIONS_with_pdf_urls_08-10-2025_18-14-29.xlsx')
